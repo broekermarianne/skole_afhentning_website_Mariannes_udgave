@@ -1,0 +1,192 @@
+---
+---
+
+<section id="proev-det" class="bg-dusk-900 py-24 sm:py-32">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="max-w-2xl">
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-brand-300">
+        Prøv det her
+      </h2>
+      <p class="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+        Se det ske på et par sekunder
+      </p>
+      <p class="mt-4 leading-relaxed text-white/60">
+        Tryk på knappen, som var du en forælder i bilen. Se hvad der sker på
+        SFO-skærmen i samme øjeblik.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-10 lg:grid-cols-2 lg:items-center">
+      <!-- "Telefonen i bilen" -->
+      <div class="mx-auto w-full max-w-sm">
+        <div class="border border-white/10 bg-dusk-800/80 p-6 text-center shadow-2xl shadow-black/40">
+          <p class="font-mono text-xs text-white/40">Forælder-app</p>
+          <p class="mt-1 text-lg font-semibold text-white">Emmas skoledag</p>
+
+          <div class="my-7 flex justify-center">
+            <svg
+              id="demo-car"
+              class="h-16 w-16 text-white/50 transition-all duration-300"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.4"
+              aria-hidden="true"
+            >
+              <path d="M4 16.5 5.4 11a2 2 0 0 1 1.9-1.4h9.4a2 2 0 0 1 1.9 1.4l1.4 5.5" stroke-linecap="round" stroke-linejoin="round" />
+              <rect x="3" y="16.5" width="18" height="3.2" rx="0.6" />
+              <circle cx="7.5" cy="19.7" r="1.3" />
+              <circle cx="16.5" cy="19.7" r="1.3" />
+            </svg>
+          </div>
+
+          <button
+            id="demo-trigger"
+            type="button"
+            class="w-full bg-brand-500 px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand-900/40 transition hover:bg-brand-400 disabled:opacity-60"
+          >
+            Jeg kører nu
+          </button>
+          <button
+            id="demo-reset"
+            type="button"
+            class="mt-3 hidden w-full px-6 py-2.5 text-sm font-medium text-white/50 transition hover:text-white"
+          >
+            Nulstil demo
+          </button>
+        </div>
+      </div>
+
+      <!-- "Skærmen i SFO'en" -->
+      <div class="mx-auto w-full max-w-md">
+        <div class="border border-white/10 bg-dusk-800/80 p-3 shadow-2xl shadow-black/40">
+          <div class="flex items-center justify-between px-3 pb-3 pt-1">
+            <span class="font-mono text-xs text-white/40">SFO Solsikken — storskærm</span>
+            <span class="flex items-center gap-1.5 font-mono text-xs text-brand-300">
+              <span class="h-1.5 w-1.5 rounded-full bg-brand-300"></span>
+              Live
+            </span>
+          </div>
+          <div class="bg-white/5 p-px">
+            <div
+              id="demo-card"
+              class="flex items-center justify-between bg-dusk-900 p-4 ring-1 ring-inset ring-transparent transition-colors duration-500"
+            >
+              <div>
+                <p class="text-lg font-semibold text-white">Emma</p>
+                <p id="demo-status" class="font-mono text-sm text-white/40">
+                  Afventer afhentning
+                </p>
+              </div>
+              <svg
+                id="demo-icon"
+                class="h-6 w-6 text-white/40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                aria-hidden="true"
+              >
+                <g data-icon="waiting">
+                  <rect x="5" y="9" width="14" height="12" rx="2" />
+                  <path d="M9 9V6.5A3 3 0 0 1 12 3.5 3 3 0 0 1 15 6.5V9" stroke-linecap="round" />
+                  <path d="M9 13h6" stroke-linecap="round" />
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const trigger = document.getElementById("demo-trigger") as HTMLButtonElement | null;
+  const resetButton = document.getElementById("demo-reset") as HTMLButtonElement | null;
+  const car = document.getElementById("demo-car");
+  const card = document.getElementById("demo-card");
+  const status = document.getElementById("demo-status");
+  const icon = document.getElementById("demo-icon");
+
+  const ICONS = {
+    waiting:
+      '<rect x="5" y="9" width="14" height="12" rx="2" /><path d="M9 9V6.5A3 3 0 0 1 12 3.5 3 3 0 0 1 15 6.5V9" stroke-linecap="round" /><path d="M9 13h6" stroke-linecap="round" />',
+    car:
+      '<path d="M4 16.5 5.4 11a2 2 0 0 1 1.9-1.4h9.4a2 2 0 0 1 1.9 1.4l1.4 5.5" stroke-linecap="round" stroke-linejoin="round" /><rect x="3" y="16.5" width="18" height="3.2" rx="0.6" /><circle cx="7.5" cy="19.7" r="1.3" /><circle cx="16.5" cy="19.7" r="1.3" />',
+    arrived: '<path d="M5 12.5 9.5 17 19 7" stroke-linecap="round" stroke-linejoin="round" />',
+  };
+
+  let intervalId: number | undefined;
+
+  function setIcon(name: keyof typeof ICONS) {
+    if (icon) icon.innerHTML = ICONS[name];
+  }
+
+  function clearDemo() {
+    if (intervalId) window.clearInterval(intervalId);
+    intervalId = undefined;
+  }
+
+  function setIdle() {
+    clearDemo();
+    card?.classList.remove("bg-brand-500/15", "ring-brand-400/30", "bg-amber-500/15", "ring-amber-400/30");
+    card?.classList.add("ring-transparent");
+    if (status) {
+      status.textContent = "Afventer afhentning";
+      status.className = "font-mono text-sm text-white/40";
+    }
+    setIcon("waiting");
+    icon?.classList.remove("text-brand-200", "text-amber-300");
+    icon?.classList.add("text-white/40");
+    car?.classList.remove("-translate-x-2", "text-brand-300");
+    car?.classList.add("text-white/50");
+    if (trigger) {
+      trigger.disabled = false;
+      trigger.textContent = "Jeg kører nu";
+    }
+    resetButton?.classList.add("hidden");
+  }
+
+  function startDemo() {
+    if (!trigger || !status || !icon || !card) return;
+
+    clearDemo();
+    trigger.disabled = true;
+    trigger.textContent = "På vej...";
+    car?.classList.add("-translate-x-2");
+    car?.classList.remove("text-white/50");
+    car?.classList.add("text-brand-300");
+    resetButton?.classList.remove("hidden");
+
+    card.classList.remove("ring-transparent");
+    card.classList.add("bg-brand-500/15", "ring-brand-400/30");
+    setIcon("car");
+    icon.classList.remove("text-white/40");
+    icon.classList.add("text-brand-200");
+
+    let minutesLeft = Math.floor(Math.random() * 6) + 6; // 6-11 min
+    status.textContent = `Mor er fremme om ${minutesLeft} min.`;
+    status.className = "font-mono text-sm text-brand-200";
+
+    intervalId = window.setInterval(() => {
+      minutesLeft -= 1;
+      if (minutesLeft > 0) {
+        status.textContent = `Mor er fremme om ${minutesLeft} min.`;
+      } else {
+        clearDemo();
+        card.classList.remove("bg-brand-500/15", "ring-brand-400/30");
+        card.classList.add("bg-amber-500/15", "ring-amber-400/30");
+        status.textContent = "Mor er her nu";
+        status.className = "font-mono text-sm text-amber-300";
+        setIcon("arrived");
+        icon.classList.remove("text-brand-200");
+        icon.classList.add("text-amber-300");
+        if (trigger) trigger.textContent = "Ankommet";
+      }
+    }, 800); // 1 "minut" = 0,8 sek. i demoen
+  }
+
+  trigger?.addEventListener("click", startDemo);
+  resetButton?.addEventListener("click", setIdle);
+</script>

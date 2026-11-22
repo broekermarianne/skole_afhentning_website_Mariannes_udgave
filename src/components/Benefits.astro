@@ -1,0 +1,40 @@
+---
+const groups = [
+  {
+    title: "Til børnene",
+    text: "Færre bekymringer og bedre overgange. Børn elsker forudsigelighed — det giver tryghed at kunne se, at mor eller far er på vej.",
+  },
+  {
+    title: "Til pædagogerne",
+    text: "Mindre afbrydelse og færre spørgsmål ved døren. Skærmen passer sig selv og skaber overblik over, hvem der snart skal afsted.",
+  },
+  {
+    title: "Til forældrene",
+    text: "Slut med stress-beskeder ved rødt lys. Ét tryk før du kører, og så ved både barn og personale, at du er på vej.",
+  },
+];
+---
+
+<section id="fordele" class="bg-sand-100 py-24 sm:py-32">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="max-w-2xl">
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-brand-600">
+        Fordele
+      </h2>
+      <p class="mt-3 text-3xl font-semibold tracking-tight text-dusk-900 sm:text-4xl">
+        Skabt til en travl eftermiddag
+      </p>
+    </div>
+
+    <div class="mt-14 divide-y divide-dusk-900/10 border-y border-dusk-900/10">
+      {
+        groups.map((group) => (
+          <div class="grid gap-2 py-8 sm:grid-cols-[14rem_1fr] sm:gap-10">
+            <h3 class="text-lg font-semibold text-dusk-900">{group.title}</h3>
+            <p class="max-w-2xl leading-relaxed text-dusk-900/60">{group.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

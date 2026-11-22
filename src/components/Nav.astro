@@ -1,0 +1,27 @@
+---
+import { site } from "../site.config";
+---
+
+<header class="absolute inset-x-0 top-0 z-20">
+  <nav
+    class="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 text-white"
+  >
+    <a href="#top" class="flex items-center gap-2.5 text-lg font-semibold">
+      <span class="h-2.5 w-2.5 bg-brand-300" aria-hidden="true"></span>
+      {site.productName}
+    </a>
+    <div class="hidden items-center gap-8 text-sm font-medium text-white/80 sm:flex">
+      <a href="#saadan-virker-det" class="transition hover:text-white">Sådan virker det</a>
+      <a href="#proev-det" class="transition hover:text-white">Prøv det</a>
+      <a href="#fordele" class="transition hover:text-white">Fordele</a>
+      <a href="#privatliv" class="transition hover:text-white">Privatliv</a>
+      <a href="#om" class="transition hover:text-white">Om projektet</a>
+    </div>
+    <a
+      href="#tilmelding"
+      class="bg-white px-4 py-2 text-sm font-semibold text-dusk-900 shadow-sm transition hover:bg-sand-100"
+    >
+      Bliv pilotskole
+    </a>
+  </nav>
+</header>

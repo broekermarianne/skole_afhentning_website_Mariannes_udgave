@@ -1,0 +1,41 @@
+---
+const steps = [
+  {
+    title: "Tap eller tryk",
+    text: "Når du sætter dig i bilen eller cyklen for at hente, holder du telefonen hen til et lille NFC-mærke — eller trykker på én knap i appen.",
+  },
+  {
+    title: "Automatisk ETA",
+    text: "Telefonen beregner din forventede ankomsttid ud fra trafikken og sender kun tidspunktet videre til SFO'ens skærm.",
+  },
+  {
+    title: "Ro på legepladsen",
+    text: "Dit barns navn og nedtælling dukker diskret op på skærmen. Barnet kan selv følge med, nå at lege færdig og pakke tasken i eget tempo.",
+  },
+];
+---
+
+<section id="saadan-virker-det" class="bg-sand-50 py-24 sm:py-32">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="max-w-2xl">
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-brand-600">
+        Sådan virker det
+      </h2>
+      <p class="mt-3 text-3xl font-semibold tracking-tight text-dusk-900 sm:text-4xl">
+        Tre trin fra indkørslen til SFO-skærmen
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-x-10 gap-y-14 border-t border-dusk-900/10 pt-14 sm:grid-cols-3">
+      {
+        steps.map((step, i) => (
+          <div>
+            <p class="font-mono text-sm text-brand-600">{String(i + 1).padStart(2, "0")}</p>
+            <h3 class="mt-3 text-lg font-semibold text-dusk-900">{step.title}</h3>
+            <p class="mt-2 leading-relaxed text-dusk-900/60">{step.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
